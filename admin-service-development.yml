@@ -1,7 +1,22 @@
+spring:
+  application:
+    name: admin-service
+
 # 配置运行端口号
 server:
   port: 8871
 
+# 注册中心配置
+# 注册中心
+eureka:
+  instance:
+    ip-address: 127.0.0.1
+    port: 8761
+    status-page-url: http://${spring.cloud.client.ipAddress}:${server.port}
+    instance-id: ${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.ip-address}:${eureka.instance.port}/eureka/
 ribbon:
   eureka:
     enabled: true
@@ -39,20 +54,20 @@ security:
       useCurrentUri: false
 
     resource:
-          jwt:
-            keyValue: |
-              -----BEGIN PUBLIC KEY-----
-              MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAimUKhvBhsoeSM3HkIOP/Y3RXjvonBlZnLj8oO92TyAKG53lmAoK0wZ5MTZPsfrOz2Z7CeAp6mPhUANX2RUoFwVzG7rJmgWyqGmGFNBmtYL+uVqQ80TzWi5zyzXTxgVMWiCqqw/u4AeE1qhN8chnGwhUBnpgPAPd8v57mIwg0n5JxjdYe7pgHlpvt8ZXTXd1KBxB5K7WjNlCfMf75ZEeBaplxsSfJUwKbnHQKWcY3NnpjkVR8y4jviAbkOHmGMaliM7fcsLzbosBUPDQuNlvYdjPBRfH6MMPeXRW6On3u0Um9wIYmkQS+AEgHCq4UuLOnTTqqxnGkwFYeMAAXmRyMtQIDAQAB
-              -----END PUBLIC KEY-----
+      jwt:
+        keyValue: |
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAimUKhvBhsoeSM3HkIOP/Y3RXjvonBlZnLj8oO92TyAKG53lmAoK0wZ5MTZPsfrOz2Z7CeAp6mPhUANX2RUoFwVzG7rJmgWyqGmGFNBmtYL+uVqQ80TzWi5zyzXTxgVMWiCqqw/u4AeE1qhN8chnGwhUBnpgPAPd8v57mIwg0n5JxjdYe7pgHlpvt8ZXTXd1KBxB5K7WjNlCfMf75ZEeBaplxsSfJUwKbnHQKWcY3NnpjkVR8y4jviAbkOHmGMaliM7fcsLzbosBUPDQuNlvYdjPBRfH6MMPeXRW6On3u0Um9wIYmkQS+AEgHCq4UuLOnTTqqxnGkwFYeMAAXmRyMtQIDAQAB
+          -----END PUBLIC KEY-----
 
-#logback配置，开发模式日志级别为 INFO
+        #logback配置，开发模式日志级别为 INFO
 logging:
   level:
     root: INFO
     org:
       springframework:
-        security: INFO
+        security: DEBUG
     com:
       tangyi:
-        mapper: INFO
+        mapper: DEBUG
 
